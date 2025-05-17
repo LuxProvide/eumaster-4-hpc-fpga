@@ -1,0 +1,315 @@
+{
+    "json_type": "Intel(R) FPGA Dynamic Profiler JSON",
+    "versions":
+    {
+        "profiler_json_version": "2024.1.0.1097aa05bafa5450f9d5ca1475d35f5295a7b2fb",
+        "aocx_version": "2024.1.0.1097aa05bafa5450f9d5ca1475d35f5295a7b2fb"
+    },
+    "kernels":
+    {
+        "nodes":
+        [
+            {
+                "type": "kernel",
+                "name": "_ZTS11VectorAddID",
+                "compute_unit": "0",
+                "sourcefile":
+                {
+                    "filename": "",
+                    "line": "0"
+                },
+                "device_ids":
+                [
+                    "0"
+                ],
+                "command_queue_id":
+                [
+                    "2"
+                ],
+                "start_time": "4305917058250472",
+                "end_time": "4305917058283732",
+                "num_samples": "1",
+                "shared_counter_run_type": "-1",
+                "sample_timestamps":
+                [
+                    "4305917058283732"
+                ],
+                "is_autorun": "false",
+                "children": ""
+            }
+        ]
+    },
+    "boards":
+    {
+        "nodes":
+        [
+            {
+                "type": "board",
+                "board_type": "p520_hpc_m210h_g3x16",
+                "children":
+                [
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM31",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM30",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM12",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM10",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM19",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM8",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM13",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM24",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM5",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM4",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM11",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM3",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM17",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM2",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM29",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM28",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM1",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM21",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM0",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM6",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM15",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM27",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM14",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM22",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM16",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM23",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM18",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM9",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM7",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM20",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM25",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    },
+                    {
+                        "type": "globalmem",
+                        "global_memory_name": "HBM26",
+                        "max_theoretical_globalmem_bw": "12800",
+                        "max_burst_count": "16"
+                    }
+                ]
+            }
+        ]
+    },
+    "memtransfers":
+    {
+        "nodes":
+        [
+            {
+                "type": "memtransfers",
+                "type_transfer": ".mem_transfer_write",
+                "device_id": "0",
+                "command_queue_id": "2",
+                "start_time": "4305916514457722",
+                "end_time": "4305916514871702"
+            },
+            {
+                "type": "memtransfers",
+                "type_transfer": ".mem_transfer_write",
+                "device_id": "0",
+                "command_queue_id": "2",
+                "start_time": "4305917057157722",
+                "end_time": "4305917057365462"
+            },
+            {
+                "type": "memtransfers",
+                "type_transfer": ".mem_migration",
+                "device_id": "0",
+                "command_queue_id": "2",
+                "start_time": "4305917057578972",
+                "end_time": "4305917057579352"
+            },
+            {
+                "type": "memtransfers",
+                "type_transfer": ".mem_migration",
+                "device_id": "0",
+                "command_queue_id": "2",
+                "start_time": "4305917057772982",
+                "end_time": "4305917057773262"
+            },
+            {
+                "type": "memtransfers",
+                "type_transfer": ".mem_migration",
+                "device_id": "0",
+                "command_queue_id": "2",
+                "start_time": "4305917057965152",
+                "end_time": "4305917057965422"
+            },
+            {
+                "type": "memtransfers",
+                "type_transfer": ".mem_transfer_read",
+                "device_id": "0",
+                "command_queue_id": "2",
+                "start_time": "4305917058485902",
+                "end_time": "4305917058629722"
+            }
+        ]
+    },
+    "channels":
+    {
+        "nodes": ""
+    },
+    "run_info":
+    {
+        "nodes":
+        [
+            {
+                "type": "runinfo",
+                "fmax": "458.333333333"
+            }
+        ]
+    }
+}
