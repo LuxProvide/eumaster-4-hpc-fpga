@@ -4,6 +4,11 @@
 
 After connecting to one of Meluxina's login node, please clone first the [oneAPI-sample](https://github.com/oneapi-src/oneAPI-samples.git) repository with the `git clone --depth 1 https://github.com/oneapi-src/oneAPI-samples.git` in your home folder.
 
+!!! warning "FPGA support was removed from the Intel® oneAPI Toolkits starting 2025.1"
+    Altera, originally a chipmaker acquired by Intel in 2015, was spun out as an independent company in February 2024. Now led by Sandra Rivera, it focuses on reconfigurable FPGA chips for data center, cloud    , industrial, and automotive applications. 
+    As a consequence, if you want to use oneAPI 2025.1 examples, you will need to clone `https://github.com/altera-fpga/hls-samples`. 
+    
+
 Once the repository cloned, you should see the following hierarchy:
 
 ```bash

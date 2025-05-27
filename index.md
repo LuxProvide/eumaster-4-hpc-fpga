@@ -6,11 +6,9 @@ By leveraging higher-level abstractions like SYCL and OpenCL—C/C++-based progr
 
 Following an introduction to Meluxina’s FPGA cards and an overview of SYCL programming using the [OneAPI software development toolkit](https://www.intel.com/content/www/us/en/developer/tools/oneapi/overview.html), an hands-on session will be proposed to students.  
 
-**<u>Start</u>**: 06/06/2024 - 9:00 am 
+## <u>Agenda</u>:
 
-**<u>End</u>**: 06/06/2024 - 17:00 pm 
-
-**<u>Location</u>**: Online 
+![](./images/agenda.png)
 
 ### Why using FPGAs as Hardware Accelerators (HA)?
 

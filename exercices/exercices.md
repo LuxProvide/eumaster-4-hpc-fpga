@@ -46,9 +46,11 @@
     module load 520nmx/20.4
     ```
 
-- Clone the repository if not already done: `git lfs clone https://gitlab.lxp.lu/emmanuel.kieffer/eumaster-4-hpc-fpga.git`
-
-- `cd eumaster-4-hpc-fpga.git/exercices`
+Clone the repository if not already done
+```bash
+git lfs clone --depth 1 https://gitlab.lxp.lu/emmanuel.kieffer/eumaster-4-hpc-fpga.git
+cd eumaster-4-hpc-fpga.git/exercices
+```
 
 !!! info "Building and the testing"  
     - To build all exercices, please enter the specific exercice folder and use the following commands:
