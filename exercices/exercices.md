@@ -53,7 +53,6 @@ cd eumaster-4-hpc-fpga.git/exercices
         echo "Create building directory"
         mkdir -p build && find build -mindepth 1 -delete && cd build
         echo "Building"
-        Uncomment to run the exercice
         cmake .. -DBUILD=EX && make fpga_emu
         ./E01-first-compilation.fpga_emu
         ```
@@ -106,7 +105,6 @@ cd eumaster-4-hpc-fpga.git/exercices
         echo "Create building directory"
         mkdir -p build && find build -mindepth 1 -delete && cd build
         echo "Building"
-        Uncomment to run the exercice
         cmake .. -DBUILD=EX && make fpga_emu
         ./E02-enqueue-kernel.fpga_emu
         ```
@@ -143,7 +141,6 @@ cd eumaster-4-hpc-fpga.git/exercices
         echo "Create building directory"
         mkdir -p build && find build -mindepth 1 -delete && cd build
         echo "Building"
-        Uncomment to run the exercice
         cmake .. -DBUILD=EX && make fpga_emu
         ./E03-transfer-data.fpga_emu
         ```
@@ -180,7 +177,6 @@ cd eumaster-4-hpc-fpga.git/exercices
         echo "Create building directory"
         mkdir -p build && find build -mindepth 1 -delete && cd build
         echo "Building"
-        Uncomment to run the exercice
         cmake .. -DBUILD=EX && make fpga_emu
         ./E04-buffer-transfer.fpga_emu
         ```
@@ -217,7 +213,6 @@ cd eumaster-4-hpc-fpga.git/exercices
         echo "Create building directory"
         mkdir -p build && find build -mindepth 1 -delete && cd build
         echo "Building"
-        Uncomment to run the exercice
         cmake .. -DBUILD=EX && make fpga_emu
         ./E05-dot-product.fpga_emu
         ```
@@ -253,7 +248,6 @@ cd eumaster-4-hpc-fpga.git/exercices
         echo "Create building directory"
         mkdir -p build && find build -mindepth 1 -delete && cd build
         echo "Building"
-        Uncomment to run the exercice
         cmake .. -DBUILD=EX && make fpga_emu
         ./E06-mat-transpose.fpga_emu
         ```
@@ -315,7 +309,6 @@ cd eumaster-4-hpc-fpga.git/exercices
         echo "Create building directory"
         mkdir -p build && find build -mindepth 1 -delete && cd build
         echo "Building"
-        Uncomment to run the exercice
         cmake .. -DBUILD=EX && make fpga_emu
         ./E07-shared-memory.fpga_emu
         ```
@@ -357,7 +350,6 @@ cd eumaster-4-hpc-fpga.git/exercices
         echo "Create building directory"
         mkdir -p build && find build -mindepth 1 -delete && cd build
         echo "Building"
-        Uncomment to run the exercice
         cmake .. -DBUILD=EX && make fpga_emu
         ./E08-pipe.fpga_emu
         ```
@@ -396,7 +388,6 @@ cd eumaster-4-hpc-fpga.git/exercices
         echo "Create building directory"
         mkdir -p build && find build -mindepth 1 -delete && cd build
         echo "Building"
-        Uncomment to run the exercice
         cmake .. -DBUILD=EX && make fpga_emu
         ./E09-multi-device.fpga_emu
         ```
@@ -437,7 +428,6 @@ cd eumaster-4-hpc-fpga.git/exercices
         echo "Create building directory"
         mkdir -p build && find build -mindepth 1 -delete && cd build
         echo "Building"
-        Uncomment to run the exercice
         cmake .. -DBUILD=EX -DUSER_FLAGS="-lopencv_core -lopencv_imgcodecs -lopencv_highgui -lopencv_imgproc" && make fpga_emu
         ./E10-convolution.fpga_emu
         ```
