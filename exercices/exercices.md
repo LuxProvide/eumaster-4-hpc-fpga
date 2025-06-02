@@ -24,61 +24,16 @@
 
 ## Setup
 
-- You need first to obtain an interactive job on the fpga partition and load some modules
-
-!!! example "Commands"
-    ```bash
-    salloc -A <ACCOUNT> --reservation=<RESERVATION> -t 02:00:00 -q default -p fpga -N1
-    module load env/staging/2023.1
-    module load git-lfs
-    module load CMake
-    module load intel-oneapi/2024.1.0
-    module load 520nmx/20.4
-    ```
-!!! warning "FPGA emulation"
-    As the number of FPGA nodes is limited to **20**, your interactive job may not start if the number of participants is larger than this number. If so, please use a different partition (e.g., cpu) to use FPGA emulation.
-    ```bash
-    salloc -A <ACCOUNT> --reservation=<RESERVATION> -t 02:00:00 -q default -p cpu -N1
-    module load env/staging/2023.1
-    module load git-lfs
-    module load CMake
-    module load intel-oneapi/2024.1.0
-    module load 520nmx/20.4
-    ```
-
-Clone the repository if not already done
+- You need first to obtain an interactive job on the fpga partition and load a module
+```bash
+salloc -A <ACCOUNT> --reservation=<RESERVATION> -t 00:30:00 -q short -p cpu -N1
+module load git-lfs
+```
+- Clone first the repository and enter the `exercices` folder
 ```bash
 git lfs clone --depth 1 https://gitlab.lxp.lu/emmanuel.kieffer/eumaster-4-hpc-fpga.git
 cd eumaster-4-hpc-fpga.git/exercices
 ```
-
-!!! info "Building and the testing"  
-    - To build all exercices, please enter the specific exercice folder and use the following commands:
-    ```bash
-    mkdir build && cd build
-    cmake .. -DBUILD=EX 
-    # cmake .. -DBUILD=SOL to build the solution
-    make fpga_emu
-    ./<ref_exercice>.fpga_emu
-    ```
-!!! warning "DMA with FPGA ? "
-    * In order to use **Direct Memory Access (DMA)**, you will need to setup proper data alignment or the offline compiler will output the following warnings:
-    ```bash
-    Running on device: p520_hpc_m210h_g3x16 : BittWare Stratix 10 MX OpenCL platform (aclbitt_s10mx_pcie0)
-    add two vectors of size 256
-    ** WARNING: [aclbitt_s10mx_pcie0] NOT using DMA to transfer 1024 bytes from host to device because of lack of alignment
-    **                 host ptr (0xb60b350) and/or dev offset (0x400) is not aligned to 64 bytes
-    ** WARNING: [aclbitt_s10mx_pcie0] NOT using DMA to transfer 1024 bytes from host to device because of lack of alignment
-    **                 host ptr (0xb611910) and/or dev offset (0x800) is not aligned to 64 bytes
-    ** WARNING: [aclbitt_s10mx_pcie0] NOT using DMA to transfer 1024 bytes from device to host because of lack of alignment
-    **                 host ptr (0xb611d20) and/or dev offset (0xc00) is not aligned to 64 bytes
-    ``` 
-    * We strongly recommend you to load our `jemalloc` module which provides such default alignment:
-      ```bash
-      module load jemalloc
-      export JEMALLOC_PRELOAD=$(jemalloc-config --libdir)/libjemalloc.so.$(jemalloc-config --revision)
-      LD_PRELOAD=${JEMALLOC_PRELOAD} ./exe
-      ```
 ## Exercices
 
 ### E01-first-compilation
@@ -93,24 +48,26 @@ cd eumaster-4-hpc-fpga.git/exercices
          --8<-- "./exercices/E01-first-compilation/src/E01-first-compilation.cpp"
          ```
     === "Emulation (test + solution)"
-        - To test your code:
+        - To execute your code, uncomment the following lines in `launcher_E01-first-compilation.sh`
         ```bash
-        mkdir build && cd build
-        cmake .. -DBUILD=EX
-        make fpga_emu
+        echo "Create building directory"
+        mkdir -p build && find build -mindepth 1 -delete && cd build
+        echo "Building"
+        Uncomment to run the exercice
+        cmake .. -DBUILD=EX && make fpga_emu
         ./E01-first-compilation.fpga_emu
         ```
-        - To test the solution, use the `-DBUILD=SOL` flags:
+        - To test the solution, uncomment the following lines in `launcher_E01-first-compilation.sh`
         ```bash
-        mkdir build && cd build
-        cmake .. -DBUILD=SOL
-        make fpga_emu
+        echo "Create building directory"
+        mkdir -p build && find build -mindepth 1 -delete && cd build
+        cmake .. -DPASSWORD="XXXXXX" -DBUILD=SOL  && make fpga_emu
         ./E01-first-compilation.fpga_emu
         ```
     === "Hardware (Solution)"
-        - Make sure you have an interactive job on a FPGA node
+        - To run the fpga image, uncomment the following lines in `launcher_E01-first-compilation.sh`
+        - Make sure that the header `#SBATCH -p fpga` is present
         ```bash
-        module load jemalloc
         export JEMALLOC_PRELOAD=$(jemalloc-config --libdir)/libjemalloc.so.$(jemalloc-config --revision)
         cd fpga_image
         LD_PRELOAD=${JEMALLOC_PRELOAD} ./E01-first-compilation.fpga
@@ -144,24 +101,26 @@ cd eumaster-4-hpc-fpga.git/exercices
          --8<-- "./exercices/E02-enqueue-kernel/src/E02-enqueue-kernel.cpp"
          ```
     === "Emulation (test + solution)"
-        - To test your code:
+        - To execute your code, uncomment the following lines in `launcher_E02-enqueue-kernel.sh`
         ```bash
-        mkdir build && cd build
-        cmake .. -DBUILD=EX
-        make fpga_emu
+        echo "Create building directory"
+        mkdir -p build && find build -mindepth 1 -delete && cd build
+        echo "Building"
+        Uncomment to run the exercice
+        cmake .. -DBUILD=EX && make fpga_emu
         ./E02-enqueue-kernel.fpga_emu
         ```
-        - To test the solution, use the `-DBUILD=SOL` flags:
+        - To test the solution, uncomment the following lines in `launcher_E02-enqueue-kernel.sh`
         ```bash
-        mkdir build && cd build
-        cmake .. -DBUILD=SOL
-        make fpga_emu
+        echo "Create building directory"
+        mkdir -p build && find build -mindepth 1 -delete && cd build
+        cmake .. -DPASSWORD="XXXXXX" -DBUILD=SOL  && make fpga_emu
         ./E02-enqueue-kernel.fpga_emu
         ```
     === "Hardware (Solution)"
-        - Make sure you have an interactive job on a FPGA node
+        - To run the fpga image, uncomment the following lines in `launcher_E02-enqueue-kernel.sh`
+        - Make sure that the header `#SBATCH -p fpga` is present
         ```bash
-        module load jemalloc
         export JEMALLOC_PRELOAD=$(jemalloc-config --libdir)/libjemalloc.so.$(jemalloc-config --revision)
         cd fpga_image
         LD_PRELOAD=${JEMALLOC_PRELOAD} ./E02-enqueue-kernel.fpga
@@ -179,24 +138,26 @@ cd eumaster-4-hpc-fpga.git/exercices
          --8<-- "./exercices/E03-transfer-data/src/E03-transfer-data.cpp"
          ```
     === "Emulation (test + solution)"
-        - To test your code:
+        - To execute your code, uncomment the following lines in `launcher_E03-transfer-data.sh`
         ```bash
-        mkdir build && cd build
-        cmake .. -DBUILD=EX
-        make fpga_emu
+        echo "Create building directory"
+        mkdir -p build && find build -mindepth 1 -delete && cd build
+        echo "Building"
+        Uncomment to run the exercice
+        cmake .. -DBUILD=EX && make fpga_emu
         ./E03-transfer-data.fpga_emu
         ```
-        - To test the solution, use the `-DBUILD=SOL` flags:
+        - To test the solution, uncomment the following lines in `launcher_E03-transfer-data.sh`
         ```bash
-        mkdir build && cd build
-        cmake .. -DBUILD=SOL
-        make fpga_emu
+        echo "Create building directory"
+        mkdir -p build && find build -mindepth 1 -delete && cd build
+        cmake .. -DPASSWORD="XXXXXX" -DBUILD=SOL  && make fpga_emu
         ./E03-transfer-data.fpga_emu
         ```
     === "Hardware (Solution)"
-        - Make sure you have an interactive job on a FPGA node
+        - To run the fpga image, uncomment the following lines in `launcher_E03-transfer-data.sh`
+        - Make sure that the header `#SBATCH -p fpga` is present
         ```bash
-        module load jemalloc
         export JEMALLOC_PRELOAD=$(jemalloc-config --libdir)/libjemalloc.so.$(jemalloc-config --revision)
         cd fpga_image
         LD_PRELOAD=${JEMALLOC_PRELOAD} ./E03-transfer-data.fpga
@@ -214,24 +175,26 @@ cd eumaster-4-hpc-fpga.git/exercices
          --8<-- "./exercices/E04-buffer-transfer/src/E04-buffer-transfer.cpp"
          ```
     === "Emulation (test + solution)"
-        - To test your code:
+        - To execute your code, uncomment the following lines in `launcher_E04-buffer-transfer.sh`
         ```bash
-        mkdir build && cd build
-        cmake .. -DBUILD=EX
-        make fpga_emu
+        echo "Create building directory"
+        mkdir -p build && find build -mindepth 1 -delete && cd build
+        echo "Building"
+        Uncomment to run the exercice
+        cmake .. -DBUILD=EX && make fpga_emu
         ./E04-buffer-transfer.fpga_emu
         ```
-        - To test the solution, use the `-DBUILD=SOL` flags:
+        - To test the solution, uncomment the following lines in `launcher_E04-buffer-transfer.sh`
         ```bash
-        mkdir build && cd build
-        cmake .. -DBUILD=SOL
-        make fpga_emu
+        echo "Create building directory"
+        mkdir -p build && find build -mindepth 1 -delete && cd build
+        cmake .. -DPASSWORD="XXXXXX" -DBUILD=SOL  && make fpga_emu
         ./E04-buffer-transfer.fpga_emu
         ```
     === "Hardware (Solution)"
-        - Make sure you have an interactive job on a FPGA node
+        - To run the fpga image, uncomment the following lines in `launcher_E04-buffer-transfer.sh`
+        - Make sure that the header `#SBATCH -p fpga` is present
         ```bash
-        module load jemalloc
         export JEMALLOC_PRELOAD=$(jemalloc-config --libdir)/libjemalloc.so.$(jemalloc-config --revision)
         cd fpga_image
         LD_PRELOAD=${JEMALLOC_PRELOAD} ./E04-buffer-transfer.fpga
@@ -249,24 +212,26 @@ cd eumaster-4-hpc-fpga.git/exercices
          --8<-- "./exercices/E05-dot-product/src/E05-dot-product.cpp"
          ```
     === "Emulation (test + solution)"
-        - To test your code:
+        - To execute your code, uncomment the following lines in `launcher_E05-dot-product.sh`
         ```bash
-        mkdir build && cd build
-        cmake .. -DBUILD=EX
-        make fpga_emu
+        echo "Create building directory"
+        mkdir -p build && find build -mindepth 1 -delete && cd build
+        echo "Building"
+        Uncomment to run the exercice
+        cmake .. -DBUILD=EX && make fpga_emu
         ./E05-dot-product.fpga_emu
         ```
-        - To test the solution, use the `-DBUILD=SOL` flags:
+        - To test the solution, uncomment the following lines in `launcher_E05-dot-product.sh`
         ```bash
-        mkdir build && cd build
-        cmake .. -DBUILD=SOL
-        make fpga_emu
+        echo "Create building directory"
+        mkdir -p build && find build -mindepth 1 -delete && cd build
+        cmake .. -DPASSWORD="XXXXXX" -DBUILD=SOL  && make fpga_emu
         ./E05-dot-product.fpga_emu
         ```
     === "Hardware (Solution)"
-        - Make sure you have an interactive job on a FPGA node
+        - To run the fpga image, uncomment the following lines in `launcher_E05-dot-product.sh`
+        - Make sure that the header `#SBATCH -p fpga` is present
         ```bash
-        module load jemalloc
         export JEMALLOC_PRELOAD=$(jemalloc-config --libdir)/libjemalloc.so.$(jemalloc-config --revision)
         cd fpga_image
         LD_PRELOAD=${JEMALLOC_PRELOAD} ./E05-dot-product.fpga
@@ -283,24 +248,26 @@ cd eumaster-4-hpc-fpga.git/exercices
          --8<-- "./exercices/E06-mat-transpose/src/E06-mat-transpose.cpp"
          ```
     === "Emulation (test + solution)"
-        - To test your code:
+        - To execute your code, uncomment the following lines in `launcher_E06-mat-transpose.sh`
         ```bash
-        mkdir build && cd build
-        cmake .. -DBUILD=EX
-        make fpga_emu
+        echo "Create building directory"
+        mkdir -p build && find build -mindepth 1 -delete && cd build
+        echo "Building"
+        Uncomment to run the exercice
+        cmake .. -DBUILD=EX && make fpga_emu
         ./E06-mat-transpose.fpga_emu
         ```
-        - To test the solution, use the `-DBUILD=SOL` flags:
+        - To test the solution, uncomment the following lines in `launcher_E06-mat-transpose.sh`
         ```bash
-        mkdir build && cd build
-        cmake .. -DBUILD=SOL
-        make fpga_emu
+        echo "Create building directory"
+        mkdir -p build && find build -mindepth 1 -delete && cd build
+        cmake .. -DPASSWORD="XXXXXX" -DBUILD=SOL  && make fpga_emu
         ./E06-mat-transpose.fpga_emu
         ```
     === "Hardware (Solution)"
-        - Make sure you have an interactive job on a FPGA node
+        - To run the fpga image, uncomment the following lines in `launcher_E06-mat-transpose.sh`
+        - Make sure that the header `#SBATCH -p fpga` is present
         ```bash
-        module load jemalloc
         export JEMALLOC_PRELOAD=$(jemalloc-config --libdir)/libjemalloc.so.$(jemalloc-config --revision)
         cd fpga_image
         LD_PRELOAD=${JEMALLOC_PRELOAD} ./E06-mat-transpose.fpga
@@ -343,24 +310,26 @@ cd eumaster-4-hpc-fpga.git/exercices
          --8<-- "./exercices/E07-shared-memory/src/E07-shared-memory.cpp"
          ```
     === "Emulation (test + solution)"
-        - To test your code:
+        - To execute your code, uncomment the following lines in `launcher_E07-shared-memory.sh`
         ```bash
-        mkdir build && cd build
-        cmake .. -DBUILD=EX
-        make fpga_emu
+        echo "Create building directory"
+        mkdir -p build && find build -mindepth 1 -delete && cd build
+        echo "Building"
+        Uncomment to run the exercice
+        cmake .. -DBUILD=EX && make fpga_emu
         ./E07-shared-memory.fpga_emu
         ```
-        - To test the solution, use the `-DBUILD=SOL` flags:
+        - To test the solution, uncomment the following lines in `launcher_E07-shared-memory.sh`
         ```bash
-        mkdir build && cd build
-        cmake .. -DBUILD=SOL
-        make fpga_emu
+        echo "Create building directory"
+        mkdir -p build && find build -mindepth 1 -delete && cd build
+        cmake .. -DPASSWORD="XXXXXX" -DBUILD=SOL  && make fpga_emu
         ./E07-shared-memory.fpga_emu
         ```
     === "Hardware (Solution)"
-        - Make sure you have an interactive job on a FPGA node
+        - To run the fpga image, uncomment the following lines in `launcher_E07-shared-memory.sh`
+        - Make sure that the header `#SBATCH -p fpga` is present
         ```bash
-        module load jemalloc
         export JEMALLOC_PRELOAD=$(jemalloc-config --libdir)/libjemalloc.so.$(jemalloc-config --revision)
         cd fpga_image
         LD_PRELOAD=${JEMALLOC_PRELOAD} ./E07-shared-memory.fpga
@@ -383,24 +352,26 @@ cd eumaster-4-hpc-fpga.git/exercices
          --8<-- "./exercices/E08-pipe/src/E08-pipe.cpp"
          ```
     === "Emulation (test + solution)"
-        - To test your code:
+        - To execute your code, uncomment the following lines in `launcher_E08-pipe.sh`
         ```bash
-        mkdir build && cd build
-        cmake .. -DBUILD=EX
-        make fpga_emu
+        echo "Create building directory"
+        mkdir -p build && find build -mindepth 1 -delete && cd build
+        echo "Building"
+        Uncomment to run the exercice
+        cmake .. -DBUILD=EX && make fpga_emu
         ./E08-pipe.fpga_emu
         ```
-        - To test the solution, use the `-DBUILD=SOL` flags:
+        - To test the solution, uncomment the following lines in `launcher_E08-pipe.sh`
         ```bash
-        mkdir build && cd build
-        cmake .. -DBUILD=SOL
-        make fpga_emu
+        echo "Create building directory"
+        mkdir -p build && find build -mindepth 1 -delete && cd build
+        cmake .. -DPASSWORD="XXXXXX" -DBUILD=SOL  && make fpga_emu
         ./E08-pipe.fpga_emu
         ```
     === "Hardware (Solution)"
-        - Make sure you have an interactive job on a FPGA node
+        - To run the fpga image, uncomment the following lines in `launcher_E08-pipe.sh`
+        - Make sure that the header `#SBATCH -p fpga` is present
         ```bash
-        module load jemalloc
         export JEMALLOC_PRELOAD=$(jemalloc-config --libdir)/libjemalloc.so.$(jemalloc-config --revision)
         cd fpga_image
         LD_PRELOAD=${JEMALLOC_PRELOAD} ./E08-pipe.fpga
@@ -420,24 +391,26 @@ cd eumaster-4-hpc-fpga.git/exercices
          --8<-- "./exercices/E09-multi-device/src/E09-multi-device.cpp"
          ```
     === "Emulation (test + solution)"
-        - To test your code:
+        - To execute your code, uncomment the following lines in `launcher_E09-multi-device.sh`
         ```bash
-        mkdir build && cd build
-        cmake .. -DBUILD=EX
-        make fpga_emu
+        echo "Create building directory"
+        mkdir -p build && find build -mindepth 1 -delete && cd build
+        echo "Building"
+        Uncomment to run the exercice
+        cmake .. -DBUILD=EX && make fpga_emu
         ./E09-multi-device.fpga_emu
         ```
-        - To test the solution, use the `-DBUILD=SOL` flags:
+        - To test the solution, uncomment the following lines in `launcher_E09-multi-device.sh`
         ```bash
-        mkdir build && cd build
-        cmake .. -DBUILD=SOL
-        make fpga_emu
+        echo "Create building directory"
+        mkdir -p build && find build -mindepth 1 -delete && cd build
+        cmake .. -DPASSWORD="XXXXXX" -DBUILD=SOL  && make fpga_emu
         ./E09-multi-device.fpga_emu
         ```
     === "Hardware (Solution)"
-        - Make sure you have an interactive job on a FPGA node
+        - To run the fpga image, uncomment the following lines in `launcher_E09-multi-device.sh`
+        - Make sure that the header `#SBATCH -p fpga` is present
         ```bash
-        module load jemalloc
         export JEMALLOC_PRELOAD=$(jemalloc-config --libdir)/libjemalloc.so.$(jemalloc-config --revision)
         cd fpga_image
         LD_PRELOAD=${JEMALLOC_PRELOAD} ./E09-multi-device.fpga
@@ -459,30 +432,26 @@ cd eumaster-4-hpc-fpga.git/exercices
          --8<-- "./exercices/E10-convolution/src/E10-convolution.cpp"
          ```
     === "Emulation (test + solution)"
-        - To test your code:
+        - To execute your code, uncomment the following lines in `launcher_E10-convolution.sh`
         ```bash
-        module load OpenCV
-        module load intel-oneapi/2024.1.0
-        module load 520nmx/20.4
-        mkdir build && cd build
-        cmake .. -DBUILD=EX -DUSER_FLAGS="-lopencv_core -lopencv_imgcodecs -lopencv_highgui -lopencv_imgproc"
-        make fpga_emu
+        echo "Create building directory"
+        mkdir -p build && find build -mindepth 1 -delete && cd build
+        echo "Building"
+        Uncomment to run the exercice
+        cmake .. -DBUILD=EX -DUSER_FLAGS="-lopencv_core -lopencv_imgcodecs -lopencv_highgui -lopencv_imgproc" && make fpga_emu
         ./E10-convolution.fpga_emu
         ```
-        - To test the solution, use the `-DBUILD=SOL` flags:
+        - To test the solution, uncomment the following lines in `launcher_E10-convolution.sh`
         ```bash
-        mkdir build && cd build
-        module load OpenCV
-        module load intel-oneapi/2024.1.0
-        module load 520nmx/20.4
-        cmake .. -DBUILD=SOL -DUSER_FLAGS="-lopencv_core -lopencv_imgcodecs -lopencv_highgui -lopencv_imgproc"
-        make fpga_emu
+        echo "Create building directory"
+        mkdir -p build && find build -mindepth 1 -delete && cd build
+        cmake .. -DPASSWORD="XXXXXX" -DBUILD=SOL -DUSER_FLAGS="-lopencv_core -lopencv_imgcodecs -lopencv_highgui -lopencv_imgproc"  && make fpga_emu
         ./E10-convolution.fpga_emu
         ```
     === "Hardware (Solution)"
-        - Make sure you have an interactive job on a FPGA node
+        - To run the fpga image, uncomment the following lines in `launcher_E10-convolution.sh`
+        - Make sure that the header `#SBATCH -p fpga` is present
         ```bash
-        module load jemalloc
         export JEMALLOC_PRELOAD=$(jemalloc-config --libdir)/libjemalloc.so.$(jemalloc-config --revision)
         cd fpga_image
         LD_PRELOAD=${JEMALLOC_PRELOAD} ./E10-convolution.fpga

@@ -33,7 +33,14 @@ if(${BUILD} STREQUAL "EX")
 
 elseif(${BUILD} STREQUAL "SOL")
     if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/src-solution/${TARGET_NAME}.cpp")
-        execute_process(COMMAND gpg --decrypt ${CMAKE_CURRENT_SOURCE_DIR}/src-solution/${TARGET_NAME}.cpp.gpg 
+        if(NOT DEFINED PASSWORD)
+            if(DEFINED ENV{PASSWORD})
+                set(PASSWORD "$ENV{PASSWORD}" CACHE STRING "Password for the solution`")
+            else()
+                set(PASSWORD "XXXXX" CACHE STRING "Password for the solution`")
+            endif()
+        endif()
+        execute_process(COMMAND gpg --batch --yes --decrypt --passphrase "${PASSWORD}" ${CMAKE_CURRENT_SOURCE_DIR}/src-solution/${TARGET_NAME}.cpp.gpg 
         OUTPUT_FILE ${CMAKE_CURRENT_SOURCE_DIR}/src-solution/${TARGET_NAME}.cpp
         RESULT_VARIABLE RES)
         if(NOT ${RES} STREQUAL "0")

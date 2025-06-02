@@ -17,13 +17,26 @@ EXAMPLES=( E01-first-compilation
 
 
 
-for code in "${EXAMPLES[@]}"; do
+for (( i=0; i<"${#EXAMPLES[@]}"; i++ )); do
+if [[ -f "${EXAMPLES[i]}/src-solution/${EXAMPLES[i]}.cpp" ]]; then
+rm "${EXAMPLES[i]}/src-solution/${EXAMPLES[i]}.cpp"
+fi
+code=${EXAMPLES[i]}
+EXTRA_MODULES=""
+EXTRA_FLAGS=""
+EXTRA_PARAMS=""
+if [[ "${code}" == "E10-convolution" ]];then
+	EXTRA_MODULES="OpenCV"
+	EXTRA_FLAGS="-DUSER_FLAGS=\"-lopencv_core -lopencv_imgcodecs -lopencv_highgui -lopencv_imgproc\""
+	EXTRA_PARAMS="../original_image.png"
+fi
+
 
 DIR=$(find $PWD -name "$code")
 LAUNCHER="launcher_${code}.sh"
 cat << EOF > ${LAUNCHER}
 #!/bin/bash -l
-#SBATCH --chdir=${DIR}                     # 
+#SBATCH --chdir=$(basename $DIR)           # 
 #SBATCH --nodes=1                          # number of nodes
 #SBATCH --ntasks=1                         # number of tasks
 #SBATCH --cpus-per-task=128                # number of cores per task
@@ -34,18 +47,29 @@ cat << EOF > ${LAUNCHER}
 
 module --force purge
 module load env/staging/2023.1
-module load CMake
+module load CMake ${EXTRA_MODULES}
 module load intel-oneapi/2024.1.0
 module load 520nmx/20.4
+module load jemalloc
 
-echo "Create building directory"
-mkdir -p build && find build -mindepth 1 -delete && cd build
-echo "Building fpga image"
-cmake -DBUILD=SOL -DUSER_FPGA_FLAGS="-Xsfast-compile -Xsparallel=128" .. && make VERBOSE=3 fpga
+# echo "Create building directory"
+# mkdir -p build_ex && find build_ex -mindepth 1 -delete && cd build_ex
+# echo "Building"
+# Uncomment to run the exercice 
+# cmake .. -DBUILD=EX ${EXTRA_FLAGS} && make fpga_emu
+# ./$(basename $DIR).fpga_emu ${EXTRA_PARAMS}
+# echo "Create building directory"
+# mkdir -p build_sol && find build_sol -mindepth 1 -delete && cd build_sol
+# echo "Building"
+# Uncomment to run the solution
+# cmake .. -DPASSWORD="XXXXXX" -DBUILD=SOL ${EXTRA_FLAGS} && make fpga_emu
+# ./$(basename $DIR).fpga_emu ${EXTRA_PARAMS}
+# Uncomment to execute the FPGA image
+# cd fpga_image 
+# export JEMALLOC_PRELOAD=\$(jemalloc-config --libdir)/libjemalloc.so.\$(jemalloc-config --revision)
+# LD_PRELOAD=\${JEMALLOC_PRELOAD} ./$(basename $DIR).fpga ${EXTRA_PARAMS}
 EOF
 chmod +x ${LAUNCHER}
-cat ${LAUNCHER}
-sbatch ${LAUNCHER}
 done
 
 

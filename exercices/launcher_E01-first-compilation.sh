@@ -1,5 +1,5 @@
 #!/bin/bash -l
-#SBATCH --chdir=/mnt/tier2/project/lxp/ekieffer/Training/eumaster-4-hpc-fpga/exercices/E01-first-compilation                     # 
+#SBATCH --chdir=E01-first-compilation           # 
 #SBATCH --nodes=1                          # number of nodes
 #SBATCH --ntasks=1                         # number of tasks
 #SBATCH --cpus-per-task=128                # number of cores per task
@@ -10,11 +10,24 @@
 
 module --force purge
 module load env/staging/2023.1
-module load CMake
+module load CMake 
 module load intel-oneapi/2024.1.0
 module load 520nmx/20.4
+module load jemalloc
 
-echo "Create building directory"
-mkdir -p build && find build -mindepth 1 -delete && cd build
-echo "Building fpga image"
-cmake -DBUILD=SOL -DUSER_FPGA_FLAGS="-Xsfast-compile -Xsparallel=128" .. && make VERBOSE=3 fpga
+# echo "Create building directory"
+# mkdir -p build_ex && find build_ex -mindepth 1 -delete && cd build_ex
+# echo "Building"
+# Uncomment to run the exercice 
+# cmake .. -DBUILD=EX  && make fpga_emu
+# ./E01-first-compilation.fpga_emu 
+# echo "Create building directory"
+# mkdir -p build_sol && find build_sol -mindepth 1 -delete && cd build_sol
+# echo "Building"
+# Uncomment to run the solution
+# cmake .. -DPASSWORD="XXXXXX" -DBUILD=SOL  && make fpga_emu
+# ./E01-first-compilation.fpga_emu 
+# Uncomment to execute the FPGA image
+# cd fpga_image 
+# export JEMALLOC_PRELOAD=$(jemalloc-config --libdir)/libjemalloc.so.$(jemalloc-config --revision)
+# LD_PRELOAD=${JEMALLOC_PRELOAD} ./E01-first-compilation.fpga 
