@@ -34,6 +34,18 @@ module load git-lfs
 git lfs clone --depth 1 https://gitlab.lxp.lu/emmanuel.kieffer/eumaster-4-hpc-fpga.git
 cd eumaster-4-hpc-fpga.git/exercices
 ```
+
+!!! warning "Reservations"
+    Please use only the two following reservations which have dedicated resources for this event:
+
+    - `#SBATCH --reservation=eumaster4hpc-fpga` for accessing the 15 reserved FPGA nodes
+
+    - `#SBATCH --reservation=eumaster4hpc-cpu` for accessing the 30 reserved CPU nodes
+
+    While emulation can be done using both reservations, FPGA image provided to you can only be executed using the `eumaster4hpc-fpga` reservation.
+
+
+
 ## Exercices
 
 ### E01-first-compilation
