@@ -49,9 +49,9 @@ int main() {
               << std::endl;
 
 
-    double host_vec_a[kVectSize];
-    double host_vec_b[kVectSize];
-    double host_vec_c;
+    double* host_vec_a = new double[kVectSize];
+    double* host_vec_b = new double[kVectSize];
+    double* host_vec_c = new double[1];
     for (int i = 0; i < kVectSize; i++) {
       host_vec_a[i] = i;
       host_vec_b[i] = (kVectSize - i);
@@ -62,7 +62,7 @@ int main() {
     {
      sycl::buffer buffer_vec_a{host_vec_a,sycl::range(kVectSize)}; 
      sycl::buffer buffer_vec_b{host_vec_b,sycl::range(kVectSize)};
-     sycl::buffer buffer_vec_c{&host_vec_c,sycl::range(1)};
+     sycl::buffer buffer_vec_c{host_vec_c,sycl::range(1)};
      q.submit([&](handler& h) {
        sycl::accessor access_vec_a{buffer_vec_a,h,sycl::read_only}; 
        sycl::accessor access_vec_b{buffer_vec_b,h,sycl::read_only};  
@@ -79,13 +79,16 @@ int main() {
       expected += (host_vec_a[i] * host_vec_b[i]);
     }
 
-    if (host_vec_c != expected) {
-      std::cout << "expected=" << expected << ": result " << host_vec_c << std::endl;
+    if (*host_vec_c != expected) {
+      std::cout << "expected=" << expected << ": result " << *host_vec_c << std::endl;
       passed = false;
     }else{
       std::cout << "A.B=" << host_vec_c << std::endl;
-      std::cout << "Success"<< std::endl;
     }
+
+    delete[] host_vec_a;
+    delete[] host_vec_b;
+    delete[] host_vec_c;
 
   } catch (sycl::exception const &e) {
     // Catches exceptions in the host code.

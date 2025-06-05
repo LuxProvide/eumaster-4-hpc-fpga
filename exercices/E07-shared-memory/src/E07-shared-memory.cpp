@@ -13,18 +13,13 @@
 
 using namespace sycl;
 
+#define PRINTF(format, ...)                                    \
+  {                                                            \
+    static const CL_CONSTANT char _format[] = format;          \
+    ext::oneapi::experimental::printf(_format, ##__VA_ARGS__); \
+  }
 
-<<<<<<<< HEAD:exercices/E07-shared-memory/src/E07-shared-memory.cpp
 class VecProductPID;
-========
-class DotProductID;
-
-void DotProduct(const double *vec_a_in, const double *vec_b_in, double *vec_c_out,
-               int len) {
-// Define your dot product here
-}
-
->>>>>>>> 65d2f804a19776777ecfb37e5336cea6e5972f72:exercices/E05-dot-product/src/E05-dot-product.cpp
 
 
 int main() {
@@ -54,9 +49,9 @@ int main() {
               << std::endl;
 
 
-    float host_vec_a[kVectSize];
-    float host_vec_b[kVectSize];
-    float host_vec_c[kVectSize*kVectSize];
+    float* host_vec_a = new float[kVectSize];
+    float* host_vec_b = new float[kVectSize];
+    float* host_vec_c = new float[kVectSize*kVectSize];
     for (int i = 0; i < kVectSize; i++) {
       host_vec_a[i] = i;
       host_vec_b[i] = (kVectSize - i);
@@ -72,22 +67,17 @@ int main() {
        sycl::accessor access_vec_a{buffer_vec_a,h,sycl::read_only}; 
        sycl::accessor access_vec_b{buffer_vec_b,h,sycl::read_only};  
        sycl::accessor access_vec_c{buffer_vec_c,h,sycl::write_only,sycl::no_init};  
-<<<<<<<< HEAD:exercices/E07-shared-memory/src/E07-shared-memory.cpp
        sycl::local_accessor<float,1> shared_mem{blockSize, h};
        h.parallel_for<VecProductPID>(sycl::nd_range<1>({kVectSize,blockSize}),[=](sycl::nd_item<1> item){ 
          int m = item.get_global_id()[0];
          int i = item.get_local_id()[0];
-         /*
-          *
-          *  Define the kernel code here
-          *
-          *
-          */
-========
-       h.single_task<DotProductID>([=]() {
-          // Call the the function here
-          DotProduct(&access_vec_a[0],&access_vec_b[0],&access_vec_c[0],kVectSize);
->>>>>>>> 65d2f804a19776777ecfb37e5336cea6e5972f72:exercices/E05-dot-product/src/E05-dot-product.cpp
+         for (int p = 0; p < kVectSize/blockSize; p++) {
+            /*
+            *
+            * Add your code here
+            *
+            */
+         }
        });
      });
     }
@@ -105,16 +95,10 @@ int main() {
       }
     }
 
-<<<<<<<< HEAD:exercices/E07-shared-memory/src/E07-shared-memory.cpp
-========
-    if (host_vec_c != expected) {
-      std::cout << "expected=" << expected << ": result " << host_vec_c << std::endl;
-      passed = false;
-    }else{
-      std::cout << "A.B=" << host_vec_c << std::endl;
-      std::cout << "Success"<< std::endl;
-    }
->>>>>>>> 65d2f804a19776777ecfb37e5336cea6e5972f72:exercices/E05-dot-product/src/E05-dot-product.cpp
+    delete[] host_vec_a;
+    delete[] host_vec_b;
+    delete[] host_vec_c;
+
 
   } catch (sycl::exception const &e) {
     // Catches exceptions in the host code.

@@ -47,8 +47,8 @@ int main() {
               << device.get_info<sycl::info::device::name>().c_str()
               << std::endl;
 
-    int host_vec_a[kVectSize];
-    int host_vec_b[kVectSize];
+    int* host_vec_a = new int[kVectSize];
+    int* host_vec_b = new int[kVectSize];
     int * vec_a = malloc_device<int>(kVectSize,q);
     int * vec_b = malloc_device<int>(kVectSize,q);
     int * vec_c = malloc_device<int>(kVectSize,q);
@@ -71,13 +71,14 @@ int main() {
           PRINTF("vect_b[%d]: %d\n",i,vec_b[i]);
         }
       });
-    })
-       .wait();
+    }).wait();
 
+    delete[] host_vec_a;
+    delete[] host_vec_b;
+    sycl::free(vec_a,q); 
+    sycl::free(vec_b,q); 
+    sycl::free(vec_c,q); 
 
-
-
-   
   } catch (sycl::exception const &e) {
     // Catches exceptions in the host code.
     std::cerr << "Caught a SYCL host exception:\n" << e.what() << "\n";

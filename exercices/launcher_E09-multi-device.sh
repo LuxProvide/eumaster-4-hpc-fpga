@@ -5,8 +5,12 @@
 #SBATCH --cpus-per-task=128                # number of cores per task
 #SBATCH --time=24:00:00                    # time (HH:MM:SS)
 #SBATCH --account=lxp                      # project account
-#SBATCH --partition=fpga                   # partition
 #SBATCH --qos=default                      # QOS
+#Uncomment fpga or cpu
+##SBATCH --reservation=eumaster4hpc-cpu
+##SBATCH --partition=cpu
+#SBATCH --reservation=eumaster4hpc-fpga
+#SBATCH --partition=fpga
 
 module --force purge
 module load env/staging/2023.1

@@ -48,8 +48,8 @@ int main() {
               << std::endl;
 
 
-    int host_vec_a[kVectSize];
-    int host_vec_b[kVectSize];
+    int* host_vec_a = new int[kVectSize];
+    int* host_vec_b = new int[kVectSize];
     for (int i = 0; i < kVectSize; i++) {
       host_vec_a[i] = i;
       host_vec_b[i] = (kVectSize - i);
@@ -65,6 +65,10 @@ int main() {
     *
     */
     }
+
+    delete[] host_vec_a;
+    delete[] host_vec_b;
+
    
   } catch (sycl::exception const &e) {
     // Catches exceptions in the host code.

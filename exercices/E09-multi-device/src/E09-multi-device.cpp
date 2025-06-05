@@ -61,7 +61,7 @@ int main() {
       */
 
 
-    int host_array[N];
+    int* host_array = new int[N];
     std::memset(host_array, 0, sizeof(int)*N);
     /*
       *
@@ -110,6 +110,10 @@ int main() {
         }
      }
 
+    delete[] host_array;
+    /*
+    * release memory on devices
+    */
 
   } catch (sycl::exception const &e) {
     // Catches exceptions in the host code.
