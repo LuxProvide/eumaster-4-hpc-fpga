@@ -4,7 +4,7 @@
 #SBATCH --ntasks=1                         # number of tasks
 #SBATCH --cpus-per-task=128                # number of cores per task
 #SBATCH --time=24:00:00                    # time (HH:MM:SS)
-#SBATCH --account=lxp                      # project account
+#SBATCH --account=p200911                      # project account
 #SBATCH --qos=default                      # QOS
 #Uncomment fpga or cpu
 ##SBATCH --reservation=eumaster4hpc-cpu

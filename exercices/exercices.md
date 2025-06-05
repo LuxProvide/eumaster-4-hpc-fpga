@@ -26,7 +26,9 @@
 
 - You need first to obtain an interactive job on the fpga partition and load a module
 ```bash
-salloc -A <ACCOUNT> --reservation=<RESERVATION> -t 00:30:00 -q short -p cpu -N1
+salloc -A p200911 --reservation=eumaster4hpc-cpu -t 00:30:00 -q short -p cpu -N1
+# OR 
+# salloc -A p200911 --reservation=eumaster4hpc-fpga -t 00:30:00 -q short -p fpga -N1
 module load git-lfs
 ```
 - Clone first the repository and enter the `exercices` folder
