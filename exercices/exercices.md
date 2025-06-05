@@ -418,6 +418,7 @@ cd eumaster-4-hpc-fpga.git/exercices
         cd fpga_image
         LD_PRELOAD=${JEMALLOC_PRELOAD} ./E09-multi-device.fpga
         ```
+        <u> Question </u>: Why do you still get a warning for alignment ?
 
 
 ### E10-convolution

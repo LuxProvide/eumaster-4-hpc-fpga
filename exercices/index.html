@@ -3029,7 +3029,8 @@ a_m b_1 &amp; a_m b_2 &amp; \cdots &amp; a_m b_n
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">JEMALLOC_PRELOAD</span><span class="o">=</span><span class="k">$(</span>jemalloc-config<span class="w"> </span>--libdir<span class="k">)</span>/libjemalloc.so.<span class="k">$(</span>jemalloc-config<span class="w"> </span>--revision<span class="k">)</span>
 </span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="nb">cd</span><span class="w"> </span>fpga_image
 </span><span id="__span-38-3"><a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a><span class="nv">LD_PRELOAD</span><span class="o">=</span><span class="si">${</span><span class="nv">JEMALLOC_PRELOAD</span><span class="si">}</span><span class="w"> </span>./E09-multi-device.fpga
-</span></code></pre></div></li>
+</span></code></pre></div>
+<u> Question </u>: Why do you still get a warning for alignment ?</li>
 </ul>
 </div>
 </div>
